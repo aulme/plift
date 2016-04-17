@@ -1,4 +1,4 @@
-# Plift - lift function to accept promises
+# Plift - use promises as values
 Inspired by and intended to work well with [Ramda.js](http://ramdajs.com/).
 
 ## Usage

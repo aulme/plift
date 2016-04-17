@@ -1,7 +1,7 @@
 {
   "name": "plift",
   "version": "0.0.2",
-  "description": "Make any function accept a mix of promises and normal values",
+  "description": "Use promises as values",
   "main": "plift.js",
   "scripts": {
     "test": "mocha ./plift_test"
