@@ -1,13 +1,13 @@
 {
-  "name": "funp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "plift_test.js",
+  "name": "plift",
+  "version": "0.0.1",
+  "description": "Make any function accept a mix of promises and normal values",
+  "main": "plift.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./plift_test"
   },
-  "author": "",
-  "license": "ISC",
+  "author": "Aleksandrs Ulme <aleksandrs.ulme@gmail.com",
+  "license": "MIT",
   "dependencies": {
     "ramda": "^0.21.0"
   },

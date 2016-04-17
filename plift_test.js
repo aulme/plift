@@ -1,12 +1,9 @@
 const R = require('ramda');
-const expect = require('chai').use(require('chai-as-promised')).expect;
+const expect = require('chai')
+  .use(require('chai-as-promised'))
+  .expect;
 
-const plift = function (fn) {
-  return R.curryN(fn.length, function () {
-     return Promise.all(arguments)
-      .then(R.apply(fn));
-  });
- }
+const plift = require('./plift');
 
 describe("lifting functions to work with promisses", () => {
   const liftedAdd = plift(R.add);
@@ -16,7 +13,7 @@ describe("lifting functions to work with promisses", () => {
       .to.eventually.equal(3);
   });
 
-  it("should lift mixed inputs", () => {
+  it("should lift mixed inputs functions", () => {
     return expect(liftedAdd(Promise.resolve(1), 2))
       .to.eventually.equal(3);
   });
@@ -28,7 +25,7 @@ describe("lifting functions to work with promisses", () => {
   });
 
   it("should not loose arity of lifted functions", () => {
-    const fn = (a, b) => a + b;
-    expect(plift(fn).length).to.equal(2);
+    const fn = (a, b, c) => a + b + c;
+    expect(plift(fn).length).to.equal(3);
   });
 });
