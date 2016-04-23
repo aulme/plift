@@ -1,10 +1,30 @@
 const R = require('ramda');
 
-const plift = function (fn) {
+function pliftFunction (fn) {
   return R.curryN(fn.length, function () {
     return Promise.all(arguments)
     .then(R.apply(fn));
   });
+}
+
+const isFunction = fn => fn && typeof(fn) === 'function';
+const isObject = obj => obj instanceof Object;
+
+const mapObj = (fn, obj) => Object.keys(obj).reduce((acc, curr) => {
+    acc[curr] = fn(obj[curr]);
+    return acc;
+}, {});
+
+function plift (obj) {
+  if(isFunction(obj)) {
+    return pliftFunction(obj);
+  }
+
+  if(isObject(obj)) {
+    return mapObj(plift, obj);
+  }
+
+  return obj;
 }
 
 module.exports = plift;

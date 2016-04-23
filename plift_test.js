@@ -28,4 +28,19 @@ describe("lifting functions to work with promisses", () => {
     const fn = (a, b, c) => a + b + c;
     expect(plift(fn).length).to.equal(3);
   });
+
+  it("should plift all functions in an object", () => {
+    const LR = plift(R);
+    expect(LR.add(4, Promise.resolve(10))).to.become(14);
+  });
+
+  it("should plift all deeply nested functions in an object", () => {
+    const util = {
+      math: {
+        add: (x, y) => x + y
+      }
+    }
+    const putil = plift(util);
+    expect(putil.math.add(4, Promise.resolve(10))).to.become(14);
+  });
 });
