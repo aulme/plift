@@ -48,7 +48,7 @@ const x = add5All(Promise.resolve([1, 2, 3]));
 log(R.sum(x)); //21
 ```
 
-For functional composition plift automatically flattens resulting promise structures, so R.map(R.add(5))([1, 2, 3]) returns a promise for P[6, 7, 8] rather then P[P6, P7, P8].
+For functional composition plift automatically flattens resulting promise structures, so R.map(R.add(5))([1, 2, 3]) returns a promise for P[6, 7, 8] rather then P[P6, P7, P8]. The same is true for object properties.
 
 ## Installation
 In terminal:

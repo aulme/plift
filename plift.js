@@ -1,28 +1,40 @@
 const R = require('ramda');
 
-const promiseAll = x => Promise.all(x);
-const promiseAllObj = obj => {
+function promiseAll (x) {
+  return Promise.all(x);
+}
+
+function promiseAllObj (obj) {
   return promiseAll(R.map(promiseAll, R.toPairs(obj)))
     .then(promiseAll)
     .then(R.fromPairs);
-};
+}
 
-const isFunction = fn => fn && typeof(fn) === 'function';
-const isObject = obj => obj &&  obj instanceof Object && !Array.isArray(obj);
+function isFunction (fn) {
+  return fn && typeof(fn) === 'function';
+}
+
+function isObject (obj) {
+  return obj &&  obj instanceof Object && !Array.isArray(obj);
+}
 
 function pliftFunction (fn) {
   return R.curryN(fn.length, function () {
     return Promise.all(arguments)
-    .then(args => fn.apply(null, args))
-    .then(R.when(Array.isArray, promiseAll))
-    .then(R.when(isObject, promiseAllObj));
+      .then(function(args) {
+        return fn.apply(null, args);
+      })
+      .then(R.when(Array.isArray, promiseAll))
+      .then(R.when(isObject, promiseAllObj));
   });
 }
 
-const mapObj = (fn, obj) => Object.keys(obj).reduce((acc, curr) => {
+function mapObj (fn, obj) {
+  return Object.keys(obj).reduce(function (acc, curr) {
     acc[curr] = fn(obj[curr]);
     return acc;
-}, {});
+  }, {});
+}
 
 function plift (obj) {
   if(isFunction(obj)) {
