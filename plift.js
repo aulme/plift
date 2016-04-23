@@ -3,7 +3,8 @@ const R = require('ramda');
 function pliftFunction (fn) {
   return R.curryN(fn.length, function () {
     return Promise.all(arguments)
-    .then(args => fn.apply(null, args));
+    .then(args => fn.apply(null, args))
+    .then(R.when(R.isArrayLike, x => Promise.all(x)));
   });
 }
 

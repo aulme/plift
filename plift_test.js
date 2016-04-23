@@ -31,7 +31,7 @@ describe("lifting functions to work with promisses", () => {
 
   it("should plift all functions in an object", () => {
     const LR = plift(R);
-    expect(LR.add(4, Promise.resolve(10))).to.become(14);
+    return expect(LR.add(4, Promise.resolve(10))).to.become(14);
   });
 
   it("should plift all deeply nested functions in an object", () => {
@@ -41,6 +41,13 @@ describe("lifting functions to work with promisses", () => {
       }
     }
     const putil = plift(util);
-    expect(putil.math.add(4, Promise.resolve(10))).to.become(14);
+    return expect(putil.math.add(4, Promise.resolve(10))).to.become(14);
+  });
+
+  it("allows for promises of collection of promises", () => {
+    const LR = plift(R);
+    const add5All = LR.map(LR.add(5));
+    const mapped = add5All(Promise.resolve([1, 2, 3]));
+    return expect(LR.sum(mapped)).to.eventually.equal(21);
   });
 });

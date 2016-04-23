@@ -6,7 +6,11 @@
   "scripts": {
     "test": "mocha ./plift_test"
   },
-  "author": "Aleksandrs Ulme <aleksandrs.ulme@gmail.com",
+  "repository" : {
+    "type" : "git",
+    "url" : "https://github.com/aulme/plift"
+  },
+  "author": "Aleksandrs Ulme <aleksandrs.ulme@gmail.com>",
   "license": "MIT",
   "dependencies": {
     "ramda": "^0.21.0"
