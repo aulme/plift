@@ -44,10 +44,17 @@ describe("lifting functions to work with promisses", () => {
     return expect(putil.math.add(4, Promise.resolve(10))).to.become(14);
   });
 
-  it("allows for promises of collection of promises", () => {
+  it("flattens resulting nestings of promisses in collections", () => {
     const LR = plift(R);
     const add5All = LR.map(LR.add(5));
     const mapped = add5All(Promise.resolve([1, 2, 3]));
-    return expect(LR.sum(mapped)).to.eventually.equal(21);
+    return expect(mapped).to.become([6, 7, 8]);
+  });
+
+  it("flattens resulting nestings of promisses in objects", () => {
+    const LR = plift(R);
+    const add5All = LR.map(LR.add(5));
+    const mapped = add5All(Promise.resolve({a: 1, b: 2}));
+    return expect(mapped).to.become({a: 6, b: 7});
   });
 });
