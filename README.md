@@ -45,7 +45,7 @@ You can plift entire objects, which recursively plifts all functions within that
 const R = plift(require('ramda'));
 const add5All = R.map(R.add(5));
 const x = add5All(Promise.resolve([1, 2, 3]));
-log(R.sum(x)); // 21
+log(R.sum(x)); //21
 ```
 
 ## Installation
